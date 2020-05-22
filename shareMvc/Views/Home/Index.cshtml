@@ -1,0 +1,67 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+@model List<Model.article>
+<link href="~/layui/css/layui.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<style>
+    .view-content {
+        width: 400px;
+    }
+
+    .view-content {
+        display: inline-block;
+    }
+</style>
+<div class="layui-container">
+    <div class="layui-row">
+        @{
+            BLL.DataDisplay data = new BLL.DataDisplay();
+        }
+        @foreach (var item in Model)
+        {
+            <ul class="view-content">
+                <li class="h3">@item.ArticleName<small>By @item.ArticleName</small></li>
+                <li class="lead">@item.Content</li>
+                <li>
+                    <small>@item.ReleaseDateTime</small>
+                    <div class="layui-row ">
+                        <span>
+                            <i class="layui-icon layui-icon-praise"></i>@data.conversion(item.like)
+                            <i class="layui-icon layui-icon-star"></i>@data.conversion(item.Favorite)
+                            <i class="layui-icon layui-icon-reply-fill"></i>@data.conversion(item.Comment)
+                        </span>
+                    </div>
+                </li>
+                <li>
+                    <hr class="layui-bg-gray">
+                </li>
+            </ul>
+            <span>&nbsp;&nbsp;&nbsp;</span>
+        }
+        <nav aria-label="Page navigation">
+            <ul class="pagination pagination-lg">
+                <li>
+                    <a href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li>
+                    <a href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+<script src="~/layui/layui.all.js"></script>
+
