@@ -1,25 +1,22 @@
 ﻿
 @{
     ViewBag.Title = "Index";
-    Layout = null;
+    Layout = "~/Views/Shared/_Template.cshtml";
 }
 @model List<Model.article>
-<link href="~/layui/css/layui.css" rel="stylesheet" />
-<link href="~/Content/bootstrap.css" rel="stylesheet" />
 <style>
     .view-content {
         width: 400px;
-    }
-
-    .view-content {
         display: inline-block;
     }
+
+    .navigation {
+        text-align: center;
+    }
 </style>
-<div class="layui-container">
+<div class="layui-container article-ul">
     <div class="layui-row">
-        @{
-            BLL.DataDisplay data = new BLL.DataDisplay();
-        }
+        @{ BLL.DataDisplay data = new BLL.DataDisplay(); }
         @foreach (var item in Model)
         {
             <ul class="view-content">
@@ -29,9 +26,9 @@
                     <small>@item.ReleaseDateTime</small>
                     <div class="layui-row ">
                         <span>
-                            <i class="layui-icon layui-icon-praise"></i>@data.conversion(item.like)
-                            <i class="layui-icon layui-icon-star"></i>@data.conversion(item.Favorite)
-                            <i class="layui-icon layui-icon-reply-fill"></i>@data.conversion(item.Comment)
+                            <i class="layui-icon layui-icon-praise"></i>@data.Conversion(item.like)
+                            <i class="layui-icon layui-icon-star"></i>@data.Conversion(item.Favorite)
+                            <i class="layui-icon layui-icon-reply-fill"></i>@data.Conversion(item.Comment)
                         </span>
                     </div>
                 </li>
@@ -41,27 +38,25 @@
             </ul>
             <span>&nbsp;&nbsp;&nbsp;</span>
         }
-        <nav aria-label="Page navigation">
+
+        <nav aria-label="Page navigation" class="navigation">
             <ul class="pagination pagination-lg">
+                <li><a href="~/Home/Index?page=1">首页</a></li>
                 <li>
-                    <a href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
+                    <a href="~/Home/Index?page=@(ViewBag.page-1<=1?1:ViewBag.page-1)">
+                        上一页
                     </a>
                 </li>
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
                 <li>
-                    <a href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
+                    <a href="~/Home/Index?page=@(ViewBag.page+1>=ViewBag.total?ViewBag.total:ViewBag.page+1)">
+                        下一页
                     </a>
+                </li>
+                <li>
+                    <a href="~/Home/Index?page=@(ViewBag.total)">尾页</a>
                 </li>
             </ul>
         </nav>
     </div>
 </div>
-
-<script src="~/layui/layui.all.js"></script>
 
